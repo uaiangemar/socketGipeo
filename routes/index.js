@@ -10,7 +10,7 @@ let pushSubscriptionClient;
 router.post('/subscription', async ( req, res ) => {
     console.log(req.body);
     pushSubscriptionClient = req.body;
-    res.status(200).json();
+    // res.status(200).json();
 
     const payload = 
     {
@@ -28,9 +28,11 @@ router.post('/subscription', async ( req, res ) => {
        await webpush.sendNotification( pushSubscriptionClient, JSON.stringify(payload) )
             .then( result => {
                 console.log('Enviado....', result)
+                res.status(200).json({message: 'Newsletter sent successfully.'})
             })
             .catch( error => {
                 console.log('Error...', error)
+                res.sendStatus(500);
             });
     } catch (error) {
         console.log(error)
