@@ -27,8 +27,8 @@ class Sockets {
                 this.io.emit('nuevo-mensaje-planificador', { emisor, receptor, mensaje });
             });
 
-            socket.on('enviar-mensaje-planificador', ( { emisor, mensaje } ) => {
-                console.log(emisor, mensaje);
+            socket.on('enviar-mensaje-planificador', ( { emisor, receptor, mensaje } ) => {
+                console.log(emisor, receptor, mensaje);
                 this.io.emit('nuevo-mensaje-responsable', { emisor, receptor, mensaje });
             })
 

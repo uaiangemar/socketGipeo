@@ -4,7 +4,7 @@ const http      = require('http');
 const socketIo  = require('socket.io');
 const path      = require('path');
 const cors      = require('cors');
-
+const morgan    = require('morgan');
 const Sockets   = require('./socket');
 
 
@@ -20,7 +20,7 @@ class Server {
 
         // configuración de sockets
         this.io = socketIo( this.server, { cors: {
-            origin: "http://192.168.100.126:4200",
+            origin: "*",
             methods: ["GET", "POST"]
           } } );
 
@@ -28,6 +28,12 @@ class Server {
 
     middlewares() {
         this.app.use( express.static( path.resolve( __dirname, '../public')  + '') );
+
+        this.app.use(morgan('dev'));
+        this.app.use(express.urlencoded({ extended: false }));
+        this.app.use(express.json());
+
+        this.app.use(require('../routes/index'))
 
         //CORS
         this.app.use( cors() );
