@@ -4,9 +4,35 @@ const router = Router();
 
 const webpush = require('../models/web-push');
 
+
+let pushSubscriptionClient;
+
 router.post('/subscription', ( req, res ) => {
     console.log(req.body);
+    pushSubscriptionClient = req.body;
     res.status(200).json();
+
+    const payload = JSON.stringify(
+        {
+            title: 'Notificación Gipeo',
+            image: '../public/assets/images/logoGipeo.png',
+            message: 'Nuevo mensaje',
+            vibrate: [100, 50, 100]
+            
+        }
+    )
+
+    try {
+        webpush.sendNotification( pushSubscriptionClient, payload )
+            .then( result => {
+                console.log('Enviado....', result)
+            })
+            .catch( error => {
+                console.log('Error...', error)
+            });
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 module.exports = router;
