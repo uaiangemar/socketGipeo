@@ -12,18 +12,20 @@ router.post('/subscription', ( req, res ) => {
     pushSubscriptionClient = req.body;
     res.status(200).json();
 
-    const payload = JSON.stringify(
-        {
+    const payload = 
+    {
+        notification: {
             title: 'Notificación Gipeo',
             image: '../public/assets/images/logoGipeo.png',
             message: 'Nuevo mensaje',
             vibrate: [100, 50, 100]
-            
         }
-    )
+    }
+        
+    
 
     try {
-        webpush.sendNotification( pushSubscriptionClient, payload )
+       webpush.sendNotification( pushSubscriptionClient, JSON.stringify(payload) )
             .then( result => {
                 console.log('Enviado....', result)
             })
