@@ -7,7 +7,7 @@ const webpush = require('../models/web-push');
 
 let pushSubscriptionClient;
 
-router.post('/subscription', ( req, res ) => {
+router.post('/subscription', async ( req, res ) => {
     console.log(req.body);
     pushSubscriptionClient = req.body;
     res.status(200).json();
@@ -25,7 +25,7 @@ router.post('/subscription', ( req, res ) => {
     
 
     try {
-       webpush.sendNotification( pushSubscriptionClient, JSON.stringify(payload) )
+       await webpush.sendNotification( pushSubscriptionClient, JSON.stringify(payload) )
             .then( result => {
                 console.log('Enviado....', result)
             })
