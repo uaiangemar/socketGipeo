@@ -33,13 +33,15 @@ class Server {
         this.app.use(express.urlencoded({ extended: false }));
         this.app.use(express.json());
 
-        this.app.use(require('../routes/index'), { cors: {
-            origin: "*",
-            methods: ["GET", "POST"]
-        }})
+        this.app.use(require('../routes/index'))
 
         //CORS
-        this.app.use( cors() );
+        this.app.use( cors({
+            cors: {
+                origin: "*",
+                methods: ["GET", "POST"] 
+            }
+        }) );
     }
 
     configurarSocket() {
