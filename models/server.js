@@ -33,7 +33,10 @@ class Server {
         this.app.use(express.urlencoded({ extended: false }));
         this.app.use(express.json());
 
-        this.app.use(require('../routes/index'))
+        this.app.use(require('../routes/index'), { cors: {
+            origin: "*",
+            methods: ["GET", "POST"]
+        }})
 
         //CORS
         this.app.use( cors() );
