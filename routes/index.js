@@ -7,7 +7,7 @@ const webpush = require('../models/web-push');
 
 let pushSubscriptionClient;
 
-router.post('/subscription', ( req, res ) => {
+router.post('/subscription', ( req, res, next ) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
       res.setHeader(
         "Access-Control-Allow-Methods",
@@ -17,6 +17,7 @@ router.post('/subscription', ( req, res ) => {
     console.log('body: ', req.body);
     pushSubscriptionClient = req.body;
     // res.status(200).json();
+    res.status(200).json({message: 'Newsletter sent successfully.'})
 
     const payload = 
     {
@@ -34,11 +35,9 @@ router.post('/subscription', ( req, res ) => {
        webpush.sendNotification( pushSubscriptionClient, JSON.stringify(payload) )
             .then( result => {
                 console.log('Enviado....', result)
-                res.status(200).json({message: 'Newsletter sent successfully.'})
             })
             .catch( error => {
                 console.log('Error...', error)
-                res.sendStatus(500);
             });
     } catch (error) {
         console.log(error)
