@@ -14,7 +14,7 @@ router.post('/subscription', ( req, res, next ) => {
         "OPTIONS, GET, POST, PUT, PATCH, DELETE"
       );
 
-    console.log('body: ', req);
+    console.log('body: ', req.body);
     pushSubscriptionClient = req.body;
     // res.status(200).json();
     res.status(200).json({message: 'Newsletter sent successfully.'})
