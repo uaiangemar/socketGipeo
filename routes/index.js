@@ -7,15 +7,15 @@ const webpush = require('../models/web-push');
 
 let pushSubscriptionClient;
 
-router.post('/subscription', async ( req, res ) => {
+router.post('/subscription', ( req, res ) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
       res.setHeader(
         "Access-Control-Allow-Methods",
         "OPTIONS, GET, POST, PUT, PATCH, DELETE"
       );
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    await console.log('body: ', req.body);
-    pushSubscriptionClient = await req.body;
+    console.log('body: ', req.body);
+    pushSubscriptionClient = req.body;
     // res.status(200).json();
 
     const payload = 
@@ -31,7 +31,7 @@ router.post('/subscription', async ( req, res ) => {
     
 
     try {
-       await webpush.sendNotification( pushSubscriptionClient, JSON.stringify(payload) )
+       webpush.sendNotification( pushSubscriptionClient, JSON.stringify(payload) )
             .then( result => {
                 console.log('Enviado....', result)
                 res.status(200).json({message: 'Newsletter sent successfully.'})
