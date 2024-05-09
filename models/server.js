@@ -30,10 +30,10 @@ class Server {
         this.app.use( express.static( path.resolve( __dirname, '../public')  + '') );
 
         this.app.use(morgan('dev'));
+        this.app.use(require('../routes/index'))
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json());
 
-        this.app.use(require('../routes/index'))
 
         //CORS
         this.app.use( cors() );
