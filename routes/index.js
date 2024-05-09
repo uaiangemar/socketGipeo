@@ -23,7 +23,7 @@ router.post('/subscription', ( req, res, next ) => {
     {
         notification: {
             title: 'Notificación Gipeo',
-            image: 'https://socket.autonomadeica.edu.pe/public/assets/images/logoGipeo.png',
+            icon: '../public/assets/images/logoGipeo.png',
             message: 'Nuevo mensaje',
             vibrate: [100, 50, 100]
         }
