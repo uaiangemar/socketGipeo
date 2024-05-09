@@ -31,7 +31,7 @@ class Server {
 
         this.app.use(morgan('dev'));
         this.app.use(require('../routes/index'))
-        this.app.use(express.urlencoded({ extended: true }));
+        this.app.use(express.urlencoded({ extended: false }));
         this.app.use(express.json());
 
 
